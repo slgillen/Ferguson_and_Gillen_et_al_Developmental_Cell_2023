@@ -10,4 +10,5 @@ The RNA-seq conducted in SH-SY5Y, IMR-32 and SK-N-BE(2)C cells for control, 24hr
 The RNA-seq conducted in SK-N-BE(2)C cells treated with DMSO, retinoic acid, palbociclib or palbociclib+retinoic acid is deposited under the SubSeries GSE216274.
 The H3K27ac ChIP and corresponding input samples conducted in SH-SY5Y, IMR-32 and SK-N-BE(2)C cells for control and 5/7 day palbociclib treatment are deposited under the SubSeries GSE216291.
 
-
+## open access statement
+For the purpose of open access, the author has applied a Creative Commons Attribution (CC BY) licence to any Author Accepted Manuscript version arising from this submission.

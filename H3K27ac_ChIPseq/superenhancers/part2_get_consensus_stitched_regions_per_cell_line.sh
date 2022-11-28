@@ -29,6 +29,6 @@ bedtools merge -i $mergedir/IMR32_all_cat.sorted.bed > $mergedir/IMR32_all_cat_b
 bedtools merge -i $mergedir/SY5Y_all_cat.sorted.bed > $mergedir/SY5Y_all_cat_btmerge.bed
 
 #get number of regions in each consensus
-wc -l BE2C_all_cat_btmerge.bed 
-wc -l IMR32_all_cat_btmerge.bed 
-wc -l SY5Y_all_cat_btmerge.bed 
+wc -l $mergedir/BE2C_all_cat_btmerge.bed 
+wc -l $mergedir/IMR32_all_cat_btmerge.bed 
+wc -l $mergedir/SY5Y_all_cat_btmerge.bed 

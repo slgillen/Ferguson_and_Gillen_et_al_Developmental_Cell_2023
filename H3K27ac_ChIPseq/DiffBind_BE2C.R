@@ -119,12 +119,13 @@ nrow(subset(report_df,FDR>0.5))
 
 
 
+
 # get sub-group files for downstream plotting ---------------
 
 # for input into ChIPseeker
-write.table(subset(report_df,FDR<0.05 & Fold>0.5), paste0("BE2C_5dPBvControl_UP_FDR005Fold05.txt"), sep = "\t", col.names = T, row.names = F, quote = F)
-write.table(subset(report_df,FDR<0.05 & Fold<(-0.5)), paste0("BE2C_5dPBvControl_DOWN_FDR005Fold05.txt"), sep = "\t", col.names = T, row.names = F, quote = F)
-write.table(subset(report_df,FDR>0.5), paste0("BE2C_5dPBvControl_ns_FDR05.txt"), sep = "\t", col.names = T, row.names = F, quote = F)
+write.table(subset(report_df,FDR<0.05 & Fold>0.5), "PB_H3K27ac_ChIPseq/output_data/BE2C_5dPBvControl_UP_FDR005Fold05.txt", sep = "\t", col.names = T, row.names = F, quote = F)
+write.table(subset(report_df,FDR<0.05 & Fold<(-0.5)), "PB_H3K27ac_ChIPseq/output_data/BE2C_5dPBvControl_DOWN_FDR005Fold05.txt", sep = "\t", col.names = T, row.names = F, quote = F)
+write.table(subset(report_df,FDR>0.5), "PB_H3K27ac_ChIPseq/output_data/BE2C_5dPBvControl_ns_FDR05.txt", sep = "\t", col.names = T, row.names = F, quote = F)
 
 
 # for input into plotHeatmap
@@ -141,8 +142,8 @@ nrow(BE2C_broad_sigdown)
 BE2C_broad_ns<-subset(BE2C_broad,FDR>0.5)
 nrow(BE2C_broad_ns)
 
-write.table(BE2C_broad_sigup[,c(1,2,3,4,5,11)],'BE2C_broadpeak_up05.bed',sep='\t',quote=FALSE,col.names=FALSE,row.names=FALSE)
-write.table(BE2C_broad_sigdown[,c(1,2,3,4,5,11)],'BE2C_broadpeak_down05.bed',sep='\t',quote=FALSE,col.names=FALSE,row.names=FALSE)
-write.table(BE2C_broad_ns[,c(1,2,3,4,5,11)],'BE2C_broadpeak_ns05.bed',sep='\t',quote=FALSE,col.names=FALSE,row.names=FALSE)
+write.table(BE2C_broad_sigup[,c(1,2,3,4,5,11)],'PB_H3K27ac_ChIPseq/output_data/BE2C_broadpeak_up05.bed',sep='\t',quote=FALSE,col.names=FALSE,row.names=FALSE)
+write.table(BE2C_broad_sigdown[,c(1,2,3,4,5,11)],'PB_H3K27ac_ChIPseq/output_data/BE2C_broadpeak_down05.bed',sep='\t',quote=FALSE,col.names=FALSE,row.names=FALSE)
+write.table(BE2C_broad_ns[,c(1,2,3,4,5,11)],'PB_H3K27ac_ChIPseq/output_data/BE2C_broadpeak_ns05.bed',sep='\t',quote=FALSE,col.names=FALSE,row.names=FALSE)
 
 

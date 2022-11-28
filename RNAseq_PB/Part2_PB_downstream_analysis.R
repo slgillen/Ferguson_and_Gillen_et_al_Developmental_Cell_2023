@@ -229,6 +229,56 @@ hlist <- h1+h2
 tiff(paste0('PB_RNAseq/output_figures/alllines_Hmap_kmeans',k,'_clusters.tiff'),width=1000,height=2600,res=300)
 draw(hlist, row_split = kdf$hk_clusters, cluster_row_slices = TRUE,cluster_rows=FALSE, row_dend_reorder = TRUE,show_row_dend = FALSE)
 dev.off()
-                 
-                  
+               
+                                                     
+# gene ontology analysis of clusters --------------------------------------
+
+bg_universe<-allDE_collated$gene
+length(bg_universe)
+
+clusters<-read.table('PB_RNAseq/output_data/cluster_details_6_alllines.txt',stringsAsFactors = FALSE,header=TRUE)
+
+GOtypes<-c('CC')
+for(GOtype in GOtypes){
+  for(i in 1:k){
+    geneList<-subset(clusters,cluster==i)$gene
+    ego <- enrichGO(geneList, OrgDb = "org.Hs.eg.db", ont=GOtype, pAdjustMethod='fdr', pvalueCutoff=0.01,universe=bg_universe,keyType='SYMBOL',minGSSize=20,maxGSSize=500)
+    ego_df<-data.frame(ego,stringsAsFactors = FALSE)
+    ego_df<-ego_df[order(ego_df$p.adjust),]
+    write.csv(ego_df[,c(2,3,4,6,8)],file = paste0('clusters_',i,'_',GOtype,'.csv'),quote=FALSE,row.names=FALSE)
+    ego_df$neglog10padj<--log(ego_df$p.adjust,10)
+    ego_df<-ego_df[order(ego_df$p.adjust,decreasing=TRUE),] #order table by p-value
+    print(nrow(ego_df))
+    
+    ego_df$Description<-factor(ego_df$Description,level=ego_df$Description)
+    
+    ego_df$gene_ratio<-sapply(ego_df$GeneRatio, function(x) as.numeric(strsplit(x,split='/')[[1]][1])/as.numeric(strsplit(x,split='/')[[1]][2]))
+    
+    #if more than 10 significant terms only plot the 10 most significant
+    if(nrow(ego_df)>=10){
+      png(paste0('clusters',k,'_',i,'_',GOtype,'.png'),width=450,height=175) 
+      print(ggplot(ego_df[((nrow(ego_df)-9):nrow(ego_df)),],aes(x=neglog10padj,y=Description,fill=gene_ratio))+geom_bar(stat='identity')+theme_classic()+
+              scale_x_continuous(expand=c(0,0))+labs(fill = 'Gene Ratio')+xlab('-log10 adjusted p-val')+ylab('')+theme(axis.text=element_text(size=12),axis.title=element_text(size=12)))
+      dev.off()
+    }else{
+      png(paste0('clusters',k,'_',i,'_',GOtype,'.png'),width=450,height=175) 
+      print(ggplot(ego_df,aes(x=neglog10padj,y=Description,fill=gene_ratio))+geom_bar(stat='identity')+theme_classic()+
+              scale_x_continuous(expand=c(0,0))+labs(fill = 'Gene Ratio')+xlab('-log10 adjusted p-val')+ylab('')+theme(axis.text=element_text(size=12),axis.title=element_text(size=12)))
+      dev.off()
+    }
+    rm(ego,ego_df,geneList)
+  }
+  
+}
+            
+                                                     
+                                                     
+                                                     
+                                                     
+                                                     
+                                                     
+                                                     
+                                                     
+                                                     
+                                                     
 

@@ -13,12 +13,12 @@ library(RColorBrewer)
 # read in the data and sample information --------------------------------------------------------
 
 # raw counts
-RNAseq_counts<-read.csv('/PBandRA_RNAseq/data/BE2C_PBandRA_RNAseq_rawcounts.csv',stringsAsFactors=FALSE,header=TRUE)
+RNAseq_counts<-read.csv('PBandRA_RNAseq/data/BE2C_PBandRA_RNAseq_rawcounts.csv',stringsAsFactors=FALSE,header=TRUE)
 names(RNAseq_counts)
 dim(RNAseq_counts)
 
 # sample details
-sample_info<-read.csv('/PBandRA_RNAseq/data/sample_information.csv',stringsAsFactors=FALSE,header=TRUE)
+sample_info<-read.csv('PBandRA_RNAseq/data/sample_information.csv',stringsAsFactors=FALSE,header=TRUE)
 
 # sort format of sample details
 sample_info$sample<-apply(sample_info,1,function(x) paste(x[(length(x)-1)],x[length(x)],sep='_'))
@@ -55,7 +55,7 @@ rownames(sampleDistMatrix) <- paste(vsd$Condition, vsd$Replicate, sep="-")
 colnames(sampleDistMatrix) <- paste(vsd$Condition, vsd$Replicate, sep="-")
 colors <- colorRampPalette( rev(brewer.pal(9, "Blues")) )(255)
 
-tiff('/PBandRA_RNAseq/output_figures/vst_corrPlot_all.tiff', height = 2000, width = 2200,res=300)
+tiff('PBandRA_RNAseq/output_figures/vst_corrPlot_all.tiff', height = 2000, width = 2200,res=300)
 pheatmap(sampleDistMatrix,clustering_distance_rows=sampleDists,clustering_distance_cols=sampleDists,col=colors)
 dev.off()
 
@@ -111,15 +111,15 @@ resLFC3 <- lfcShrink(DESeq2output, coef='condition_PBandRA_vs_DMSO', type="apegl
 rm(DESeq2data,DESeq2output)
 
 # quick look at results
-png("/PBandRA_RNAseq/output_figures/MAplot_PBvControl.png",width=450,height=400)
+png("PBandRA_RNAseq/output_figures/MAplot_PBvControl.png",width=450,height=400)
 DESeq2::plotMA(resLFC, ylim=c(-4,4))
 dev.off()
 
-png("/PBandRA_RNAseq/output_figures/MAplot_RAvControl.png",width=450,height=400)
+png("PBandRA_RNAseq/output_figures/MAplot_RAvControl.png",width=450,height=400)
 DESeq2::plotMA(resLFC2, ylim=c(-4,4))
 dev.off()
 
-png("/PBandRA_RNAseq/output_figures/MAplot_PBandRAvControl.png",width=450,height=400)
+png("PBandRA_RNAseq/output_figures/MAplot_PBandRAvControl.png",width=450,height=400)
 DESeq2::plotMA(resLFC3, ylim=c(-4,4)) 
 dev.off()
 
@@ -140,9 +140,9 @@ PBandRAvControl_results$gene<-rownames(PBandRAvControl_results)
 PBandRAvControl_results<-PBandRAvControl_results[,c(6,1:5)]
 
 # write results
-write.csv(PBvControl_results, file="/PBandRA_RNAseq/output_data/PBvControl_DESeq2output.csv",row.names=FALSE,quote=FALSE)
-write.csv(RAvControl_results, file="/PBandRA_RNAseq/output_data/RAvControl_DESeq2output.csv",row.names=FALSE,quote=FALSE)
-write.csv(PBandRAvControl_results, file="/PBandRA_RNAseq/output_data/PBandRAvControl_DESeq2output.csv",row.names=FALSE,quote=FALSE)
+write.csv(PBvControl_results, file="PBandRA_RNAseq/output_data/PBvControl_DESeq2output.csv",row.names=FALSE,quote=FALSE)
+write.csv(RAvControl_results, file="PBandRA_RNAseq/output_data/RAvControl_DESeq2output.csv",row.names=FALSE,quote=FALSE)
+write.csv(PBandRAvControl_results, file="PBandRA_RNAseq/output_data/PBandRAvControl_DESeq2output.csv",row.names=FALSE,quote=FALSE)
 
 rm(resLFC,resLFC2,resLFC3)
 rm(resOrdered,resOrdered2,resOrdered3)
@@ -162,7 +162,7 @@ rownames(counts_matrix)<-counts_matrix[,1]
 counts_matrix<-as.matrix(counts_matrix[,c(-1)])
 head(counts_matrix)
 
-sample_info<-read.csv('/PBandRA_RNAseq/data/sample_information.csv',header=TRUE,stringsAsFactors = FALSE)
+sample_info<-read.csv('PBandRA_RNAseq/data/sample_information.csv',header=TRUE,stringsAsFactors = FALSE)
 sample_info
 sample_info$sample<-apply(sample_info,1,function(x) paste(x[(length(x)-1)],x[length(x)],sep='_'))
 sample_info<-sample_info[,c('sample','condition','replicate')]
@@ -187,7 +187,7 @@ summary(resLFC)
 sum(resLFC$padj < 0.05, na.rm=TRUE) 
 
 # quick look at results
-png("/PBandRA_RNAseq/output_figures/MAplot_PBandRAvPB.png",width=450,height=400)
+png("PBandRA_RNAseq/output_figures/MAplot_PBandRAvPB.png",width=450,height=400)
 DESeq2::plotMA(resLFC, ylim=c(-4,4))
 dev.off()
 
@@ -198,7 +198,7 @@ PBandRAvPB_results$gene<-rownames(PBandRAvPB_results)
 PBandRAvPB_results<-PBandRAvPB_results[,c(6,1:5)]
 
 # write results
-write.csv(PBandRAvPB_results, file="/PBandRA_RNAseq/output_data/PBandRAvPB_DESeq2output.csv",row.names=FALSE,quote=FALSE)
+write.csv(PBandRAvPB_results, file="PBandRA_RNAseq/output_data/PBandRAvPB_DESeq2output.csv",row.names=FALSE,quote=FALSE)
 
 rm(resLFC)
 rm(resOrdered)
@@ -218,7 +218,7 @@ rownames(counts_matrix)<-counts_matrix[,1]
 counts_matrix<-as.matrix(counts_matrix[,c(-1)])
 head(counts_matrix)
 
-sample_info<-read.csv('/PBandRA_RNAseq/data/sample_information.csv',header=TRUE,stringsAsFactors = FALSE)
+sample_info<-read.csv('PBandRA_RNAseq/data/sample_information.csv',header=TRUE,stringsAsFactors = FALSE)
 sample_info
 sample_info$sample<-apply(sample_info,1,function(x) paste(x[(length(x)-1)],x[length(x)],sep='_'))
 sample_info<-sample_info[,c('sample','condition','replicate')]
@@ -251,11 +251,11 @@ sum(resLFC2$padj < 0.05, na.rm=TRUE)
 
 
 # quick look at results
-png("/PBandRA_RNAseq/output_figures/MAplot_PBandRAvRA.png",width=450,height=400)
+png("PBandRA_RNAseq/output_figures/MAplot_PBandRAvRA.png",width=450,height=400)
 DESeq2::plotMA(resLFC, ylim=c(-4,4))
 dev.off()
 
-png("/PBandRA_RNAseq/output_figures/MAplot_PBvRA.png",width=450,height=400)
+png("PBandRA_RNAseq/output_figures/MAplot_PBvRA.png",width=450,height=400)
 DESeq2::plotMA(resLFC2, ylim=c(-4,4))
 dev.off()
 
@@ -271,8 +271,8 @@ PBvRA_results$gene<-rownames(PBvRA_results)
 PBvRA_results<-PBvRA_results[,c(6,1:5)]
 
 # write results
-write.csv(PBandRAvRA_results, file="/PBandRA_RNAseq/output_data/PBandRAvRA_DESeq2output.csv",row.names=FALSE,quote=FALSE)
-write.csv(PBvRA_results, file="/PBandRA_RNAseq/output_data/differential_expression/PBvRA_DESeq2output.csv",row.names=FALSE,quote=FALSE)
+write.csv(PBandRAvRA_results, file="PBandRA_RNAseq/output_data/PBandRAvRA_DESeq2output.csv",row.names=FALSE,quote=FALSE)
+write.csv(PBvRA_results, file="PBandRA_RNAseq/output_data/differential_expression/PBvRA_DESeq2output.csv",row.names=FALSE,quote=FALSE)
 
 rm(resLFC,resLFC2)
 rm(resOrdered,resOrdered2)

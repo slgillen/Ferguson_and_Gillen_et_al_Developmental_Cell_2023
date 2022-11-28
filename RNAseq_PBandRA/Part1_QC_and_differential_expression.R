@@ -63,12 +63,12 @@ dev.off()
 # plot PCAs for different condition combinations
 generate_PCA <- function(vsd,groups,colourset,setname) {
   vsd.sub <- vsd[ , vsd$condition %in% groups]
-  pcaData <- DESeq2::plotPCA(vsd.sub, intgroup = c( "replicate", "condition"), returnData = TRUE) # vsd and plotPCA are part of DESeq2 package, nothing with my example below. 
-  percentVar <- round(100 * attr(pcaData, "percentVar")) 
+  pca_data <- DESeq2::plotPCA(vsd.sub, intgroup = c( "replicate", "condition"), returnData = TRUE) # vsd and plotPCA are part of DESeq2 package, nothing with my example below. 
+  percent_var <- round(100 * attr(pca_data, "percentVar")) 
   
-  f1<-ggplot(pcaData, aes(x = PC1, y = PC2, fill = factor(Condition),col = factor(Condition), shape = factor(Replicate))) + geom_point(size =3) + 
+  f1<-ggplot(pca_data, aes(x = PC1, y = PC2, fill = factor(condition),col = factor(condition), shape = factor(replicate))) + geom_point(size =3) + 
     scale_shape_manual(values=c(21,22,23,24)) + scale_fill_manual(values=colourset) + scale_colour_manual(values=colourset) + 
-    xlab(paste0("PC1: ", percentVar[1], "% variance")) + ylab(paste0("PC2: ", percentVar[2], "% variance")) + theme_bw()+
+    xlab(paste0("PC1: ", percent_var[1], "% variance")) + ylab(paste0("PC2: ", percent_var[2], "% variance")) + theme_bw()+
     theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),legend.title=element_blank(),axis.text=element_text(size=12))
   ggsave(plot=f1,file=paste0('PBandRA_RNAseq/output_figures/',setname,"_PCA.tiff"),width=3.75,height=2.5)
   

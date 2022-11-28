@@ -51,8 +51,8 @@ sampleDists <- dist(t(assay(vsd)))
 
 # Correlation plot of all samples
 sampleDistMatrix <- as.matrix(sampleDists)
-rownames(sampleDistMatrix) <- paste(vsd$Condition, vsd$Replicate, sep="-")
-colnames(sampleDistMatrix) <- paste(vsd$Condition, vsd$Replicate, sep="-")
+rownames(sampleDistMatrix) <- paste(vsd$condition, vsd$replicate, sep="-")
+colnames(sampleDistMatrix) <- paste(vsd$condition, vsd$replicate, sep="-")
 colors <- colorRampPalette( rev(brewer.pal(9, "Blues")) )(255)
 
 tiff('PBandRA_RNAseq/output_figures/vst_corrPlot_all.tiff', height = 2000, width = 2200,res=300)
@@ -97,7 +97,7 @@ counts_matrix<-as.matrix(ccounts_matrix[,c(-1)])
 head(counts_matrix)
 
 # do the analysis
-DESeq2data<-DESeqDataSetFromMatrix(countData = countsMatrix,colData = sample_info,design= ~ replicate + condition)
+DESeq2data<-DESeqDataSetFromMatrix(countData = counts_matrix,colData = sample_info,design= ~ replicate + condition)
 DESeq2output <- DESeq(DESeq2data)
 resultsNames(DESeq2output) 
 

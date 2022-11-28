@@ -25,39 +25,39 @@ replicates='Rep1 Rep2 Rep3 Rep4 Rep5'
 #SH-SY5Y
 for rep in $replicates
 do
-    featureCounts -a $indir2/SY5Y_all_cat_btmerge.gff -t region -s 0 -g region_id -B -p -o $outdir/counts_SY5Y_${rep}_control_consensus.txt $indir/SY5Y_${rep}_control_ChIP.sorted.bam -T 10
+    featureCounts -a $indir/SY5Y_all_cat_btmerge.gff -t region -s 0 -g region_id -B -p -o $outdir/counts_SY5Y_${rep}_control_consensus.txt $indir/SY5Y_${rep}_control_ChIP.sorted.bam -T 10
 done
 wait
 
 for rep in $replicates
 do
-    featureCounts -a $indir2/SY5Y_all_cat_btmerge.gff -t region -s 0 -g region_id -B -p -o $outdir/counts_SY5Y_${rep}_5dPB_consensus.txt $indir/SY5Y_${rep}_5dPB_ChIP.sorted.bam -T 10
+    featureCounts -a $indir/SY5Y_all_cat_btmerge.gff -t region -s 0 -g region_id -B -p -o $outdir/counts_SY5Y_${rep}_5dPB_consensus.txt $indir/SY5Y_${rep}_5dPB_ChIP.sorted.bam -T 10
 done
 wait
 
 #IMR-32
 for rep in $replicates
 do
-    featureCounts -a $indir2/IMR32_all_cat_btmerge.gff -t region -s 0 -g region_id -B -p -o $outdir/counts_IMR32_${rep}_control_consensus.txt $indir/IMR32_${rep}_control_ChIP.sorted.bam -T 10
+    featureCounts -a $indir/IMR32_all_cat_btmerge.gff -t region -s 0 -g region_id -B -p -o $outdir/counts_IMR32_${rep}_control_consensus.txt $indir/IMR32_${rep}_control_ChIP.sorted.bam -T 10
 done
 wait
 
 for rep in $replicates
 do
-    featureCounts -a $indir2/IMR32_all_cat_btmerge.gff -t region -s 0 -g region_id -B -p -o $outdir/counts_IMR32_${rep}_5dPB_consensus.txt $indir/IMR32_${rep}_5dPB_ChIP.sorted.bam -T 12
+    featureCounts -a $indir/IMR32_all_cat_btmerge.gff -t region -s 0 -g region_id -B -p -o $outdir/counts_IMR32_${rep}_5dPB_consensus.txt $indir/IMR32_${rep}_5dPB_ChIP.sorted.bam -T 12
 done
 wait
 
 #SK-N-BE(2)C
 for rep in $replicates
 do
-    featureCounts -a $indir2/BE2C_all_cat_btmerge.gff -t region -s 0 -g region_id -B -p -o $outdir/counts_BE2C_${rep}_control_consensus.txt $indir/BE2C_${rep}_control_ChIP.sorted.bam -T 12
+    featureCounts -a $indir/BE2C_all_cat_btmerge.gff -t region -s 0 -g region_id -B -p -o $outdir/counts_BE2C_${rep}_control_consensus.txt $indir/BE2C_${rep}_control_ChIP.sorted.bam -T 12
 done
 wait
 
 for rep in $replicates
 do
-    featureCounts -a $indir2/BE2C_all_cat_btmerge.gff -t region -s 0 -g region_id -B -p -o $outdir/counts_BE2C_${rep}_7dPB_consensus.txt $indir/BE2C_${rep}_7dPB_ChIP.sorted.bam -T 12
+    featureCounts -a $indir/BE2C_all_cat_btmerge.gff -t region -s 0 -g region_id -B -p -o $outdir/counts_BE2C_${rep}_7dPB_consensus.txt $indir/BE2C_${rep}_7dPB_ChIP.sorted.bam -T 12
 done
 wait
 

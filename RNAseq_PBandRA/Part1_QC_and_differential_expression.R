@@ -1,4 +1,4 @@
-#this script conducts data filtering and differential expression analysis with DESeq2 for the palbociclib and retinoic acid RNA-seq data
+#this script conducts data Q.C and differential expression analysis with DESeq2 for the palbociclib and retinoic acid RNA-seq data
 
 
 # load libraries ----------------------------------------------------------

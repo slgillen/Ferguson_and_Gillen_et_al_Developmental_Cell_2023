@@ -8,7 +8,7 @@ Rscript convert_file_format.R
 
 ################### get consensus stitched region set across replicates and conditions per cell line ###################
 
-maindir='' #base directory
+maindir=''
 mergedir=$maindir/merged_stitched_regions
 mkdir $mergedir
 

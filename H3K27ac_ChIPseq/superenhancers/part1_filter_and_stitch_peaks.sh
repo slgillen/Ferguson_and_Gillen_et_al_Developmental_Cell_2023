@@ -24,26 +24,26 @@ wait
 #IMR-32
 for rep in $replicates
 do
-  bedtools intersect -v -a $indir/IMR32_control_${rep}_peaks.broadPeak -b $ampdir/amplified_regions_forexclusion.bed > $outdir/IMR32_${rep}_control_peaks_filt.broadPeak &
+  bedtools intersect -v -a $indir/IMR32_control_${rep}_peaks.broadPeak -b $ampdir/amplified_regions_forexclusion.bed > $datadir/IMR32_${rep}_control_peaks_filt.broadPeak &
 done
 wait
 
 for rep in $replicates
 do
-  bedtools intersect -v -a $indir/IMR32_5dPB_${rep}_peaks.broadPeak -b $ampdir/amplified_regions_forexclusion.bed > $outdir/IMR32_${rep}_5dPB_peaks_filt.broadPeak &
+  bedtools intersect -v -a $indir/IMR32_5dPB_${rep}_peaks.broadPeak -b $ampdir/amplified_regions_forexclusion.bed > $datadir/IMR32_${rep}_5dPB_peaks_filt.broadPeak &
 done
 wait
 
 #SK-N-BE(2)C
 for rep in $replicates
 do
-  bedtools intersect -v -a $indir/BE2C_control_${rep}_peaks.broadPeak -b $ampdir/amplified_regions_forexclusion.bed > $outdir/BE2C_${rep}_control_peaks_filt.broadPeak &
+  bedtools intersect -v -a $indir/BE2C_control_${rep}_peaks.broadPeak -b $ampdir/amplified_regions_forexclusion.bed > $datadir/BE2C_${rep}_control_peaks_filt.broadPeak &
 done
 wait
 
 for rep in $replicates
 do
-  bedtools intersect -v -a $indir/BE2C_7dPB_${rep}_peaks.broadPeak -b $ampdir/amplified_regions_forexclusion.bed > $outdir/BE2C_${rep}_7dPB_peaks_filt.broadPeak &
+  bedtools intersect -v -a $indir/BE2C_7dPB_${rep}_peaks.broadPeak -b $ampdir/amplified_regions_forexclusion.bed > $datadir/BE2C_${rep}_7dPB_peaks_filt.broadPeak &
 done
 wait
 
@@ -66,13 +66,13 @@ wait
 #IMR-32
 for rep in $replicates
 do
-  awk 'BEGIN {FS="\t"; OFS="\t"} {print $1, $4, $5, $2, $3, $7, $6, $9, $4}' $outdir/IMR32_${rep}_control_peaks_filt.broadPeak > $outdir/IMR32_${rep}_control_peaks_broad.gff &
+  awk 'BEGIN {FS="\t"; OFS="\t"} {print $1, $4, $5, $2, $3, $7, $6, $9, $4}' $datadir/IMR32_${rep}_control_peaks_filt.broadPeak > $datadir/IMR32_${rep}_control_peaks_broad.gff &
 done
 wait
 
 for rep in $replicates
 do
-  awk 'BEGIN {FS="\t"; OFS="\t"} {print $1, $4, $5, $2, $3, $7, $6, $9, $4}' $outdir/IMR32_${rep}_5dPB_peaks_filt.broadPeak > $outdir/IMR32_${rep}_5dPB_peaks_broad.gff &
+  awk 'BEGIN {FS="\t"; OFS="\t"} {print $1, $4, $5, $2, $3, $7, $6, $9, $4}' $datadir/IMR32_${rep}_5dPB_peaks_filt.broadPeak > $datadir/IMR32_${rep}_5dPB_peaks_broad.gff &
 done
 wait
 
@@ -80,13 +80,13 @@ wait
 #SK-N-BE(2)C
 for rep in $replicates
 do
-  awk 'BEGIN {FS="\t"; OFS="\t"} {print $1, $4, $5, $2, $3, $7, $6, $9, $4}' $outdir/BE2C_${rep}_control_peaks_filt.broadPeak > $outdir/BE2C_${rep}_control_peaks_broad.gff &
+  awk 'BEGIN {FS="\t"; OFS="\t"} {print $1, $4, $5, $2, $3, $7, $6, $9, $4}' $datadir/BE2C_${rep}_control_peaks_filt.broadPeak > $datadir/BE2C_${rep}_control_peaks_broad.gff &
 done
 wait
 
 for rep in $replicates
 do
-  awk 'BEGIN {FS="\t"; OFS="\t"} {print $1, $4, $5, $2, $3, $7, $6, $9, $4}' $outdir/BE2C_${rep}_7dPB_peaks_filt.broadPeak > $outdir/BE2C_${rep}_7dPB_peaks_broad.gff &
+  awk 'BEGIN {FS="\t"; OFS="\t"} {print $1, $4, $5, $2, $3, $7, $6, $9, $4}' $datadir/BE2C_${rep}_7dPB_peaks_filt.broadPeak > $datadir/BE2C_${rep}_7dPB_peaks_broad.gff &
 done
 wait
 

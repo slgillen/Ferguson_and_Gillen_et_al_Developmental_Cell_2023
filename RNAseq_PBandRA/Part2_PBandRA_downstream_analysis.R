@@ -115,7 +115,7 @@ for(i in 1:5){
        
 # plot heatmap of clusters ------------------------------------------------
 
-h1<-Heatmap(as.matrix(kdf[,2:(ncol(kdf))-1]),cluster_rows=FALSE,cluster_columns=TRUE,row_dend_reorder = TRUE,show_row_dend = FALSE)
+h1<-Heatmap(as.matrix(kdf[,2:(ncol(kdf)-1)]),cluster_rows=FALSE,cluster_columns=TRUE,row_dend_reorder = TRUE,show_row_dend = FALSE)
 h2<-Heatmap(as.matrix(kdf[,'hk_clusters']),cluster_columns=TRUE,cluster_rows=FALSE)
 
 hlist <- h1+h2

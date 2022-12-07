@@ -221,7 +221,7 @@ write.table(kdf_table,file=paste0('PB_RNAseq/output_data/cluster_details_',k,'_a
                   
 # plot clusters as heatmap ------------------------------------------------
 
-h1<-Heatmap(as.matrix(kdf[,1:(ncol(kdf))-1]),cluster_rows=TRUE,cluster_columns=FALSE,use_raster=FALSE,row_dend_reorder = TRUE,show_row_dend = FALSE,show_row_names=FALSE,
+h1<-Heatmap(as.matrix(kdf[,1:(ncol(kdf)-1)]),cluster_rows=TRUE,cluster_columns=FALSE,use_raster=FALSE,row_dend_reorder = TRUE,show_row_dend = FALSE,show_row_names=FALSE,
             column_split=factor(c(rep('BE2C',15),rep('IMR32',15),rep('SHSY5Y',15)),levels=c('BE2C','IMR32','SHSY5Y')),show_column_names = FALSE)
 h2<-Heatmap(as.matrix(kdf[,'hk_clusters']),cluster_columns=FALSE,cluster_rows=FALSE)
 

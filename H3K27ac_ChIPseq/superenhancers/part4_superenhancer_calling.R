@@ -86,7 +86,7 @@ SY5Ydata$average_PB<-apply(SY5Ydata[,grepl('PB',names(SY5Ydata))==TRUE],1,functi
 
 # write output tables -----------------------------------------------------
 BE2Cdata<-BE2Cdata[order(BE2Cdata$rank_control),]
-write.table(BE2Cdata,'SY5Y_supertable_full.txt',col.names=TRUE,row.names=FALSE,quote=FALSE,sep='\t')
+write.table(BE2Cdata,'BE2C_supertable_full.txt',col.names=TRUE,row.names=FALSE,quote=FALSE,sep='\t')
 
 IMR32data<-IMR32data[order(IMR32data$rank_control),]
 write.table(IMR32data,'IMR32_supertable_full.txt',col.names=TRUE,row.names=FALSE,quote=FALSE,sep='\t')

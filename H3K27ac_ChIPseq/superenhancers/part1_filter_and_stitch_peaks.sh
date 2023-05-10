@@ -1,6 +1,8 @@
 #!/bin/bash
 
-
+indir='' #folder with MACS2 peaks
+ampdir='' #folder with bed file of amplified regions to exclude
+datadir='' #output folder
 
 
 ############ filter out the known amplified regions that are present in one or more of these cell lines ############ 
@@ -11,13 +13,13 @@ replicates='Rep1 Rep2 Rep3 Rep4 Rep5'
 #SH-SY5Y
 for rep in $replicates
 do
-  bedtools intersect -v -a $peakdir/SHSY5Y_control_${rep}_peaks.broadPeak -b $ampdir/amplified_regions_forexclusion.bed > $datadir/SY5Y_${rep}_control_peaks_filt.broadPeak &
+  bedtools intersect -v -a $indir/SHSY5Y_control_${rep}_peaks.broadPeak -b $ampdir/amplified_regions_forexclusion.bed > $datadir/SY5Y_${rep}_control_peaks_filt.broadPeak &
 done
 wait
 
 for rep in $replicates
 do
-  bedtools intersect -v -a $peakdir/SHSY5Y_5dPB_${rep}_peaks.broadPeak -b $ampdir/amplified_regions_forexclusion.bed > $datadir/SY5Y_${rep}_5dPB_peaks_filt.broadPeak &
+  bedtools intersect -v -a $indir/SHSY5Y_5dPB_${rep}_peaks.broadPeak -b $ampdir/amplified_regions_forexclusion.bed > $datadir/SY5Y_${rep}_5dPB_peaks_filt.broadPeak &
 done
 wait
 

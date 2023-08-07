@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#this script averages the bigwig files by a mean across the replicates for each condition
+
 #using WiggleTools version 1.2
 
 

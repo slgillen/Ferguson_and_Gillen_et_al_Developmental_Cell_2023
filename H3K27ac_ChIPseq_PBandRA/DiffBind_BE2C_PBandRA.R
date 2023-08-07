@@ -4,9 +4,9 @@
 library(DiffBind) #version 3.4
 library(BiocParallel)
 
-
-datadir<-'/mnt/tank/PBRA_H3K27ac_ChIP/DiffBind_final/'
-#dir.create(datadir)
+# read in data ------------------------------------------------------------
+datadir<-'DiffBind/'
+dir.create(datadir)
 
 
 ##################### read in data #####################

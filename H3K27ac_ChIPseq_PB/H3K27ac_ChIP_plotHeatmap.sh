@@ -3,6 +3,9 @@
 #plot regions of H3K27ac marks determined to be differential by DiffBind analysis
 #non-sigificantly changed regions also included for comparison
 
+datadir='' #input directory with bed file inputs
+bwdir='' #input directory of bigwig file inputs
+
 #SK-N-BE(2)C
 
 computeMatrix reference-point --referencePoint center -b 2500 -a 2500 -R $datadir/BE2C_broadpeak_up05.bed $datadir/BE2C_broadpeak_ns05.bed $datadir/BE2C_broadpeak_down05.bed -S $bwdir/BE2C_control_H3K27ac_ChIP_mean_CPM.bw $bwdir/BE2C_7dPB_H3K27ac_ChIP_mean_CPM.bw -p 10 \

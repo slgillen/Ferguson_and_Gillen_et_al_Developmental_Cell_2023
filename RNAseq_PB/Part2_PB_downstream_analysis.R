@@ -195,7 +195,7 @@ dev.off()
 # visual check of the value of k choice
 k<-6
 res.k<-hkmeans(kdf,k,hc.method='complete')
-png(paste0('PB_RNAseq/output_figures/alllines_kmeans_',k,'_clusters.png'),width=350,height=300)
+png(paste0('PB_RNAseq/output_figures/alllines_kmeans_k',k,'_clusters.png'),width=350,height=300)
 print(fviz_cluster(res.k, ellipse=FALSE,labelsize=6,ggtheme = theme_classic(),geom=c('point'),pointsize=1,stand=TRUE,shape='circle')+scale_colour_manual(values = c("darkorange", "green4","mediumvioletred",'royalblue3','darkgoldenrod2','red3','grey78','grey28')))
 dev.off()
                   
@@ -215,7 +215,7 @@ kdf_table<-kdf
 kdf_table$gene<-rownames(kdf)
 kdf_table<-kdf_table[,c('gene','hk_clusters')]
 names(kdf_table)<-c('gene','cluster')
-write.table(kdf_table,file=paste0('PB_RNAseq/output_data/cluster_details_',k,'_alllines.txt'),row.names=FALSE,quote=FALSE,col.names=TRUE)
+write.table(kdf_table,file=paste0('PB_RNAseq/output_data/cluster_details_k',k,'_alllines.txt'),row.names=FALSE,quote=FALSE,col.names=TRUE)
 
              
                   
@@ -226,7 +226,7 @@ h1<-Heatmap(as.matrix(kdf[,1:(ncol(kdf)-1)]),cluster_rows=TRUE,cluster_columns=F
 h2<-Heatmap(as.matrix(kdf[,'hk_clusters']),cluster_columns=FALSE,cluster_rows=FALSE)
 
 hlist <- h1+h2
-tiff(paste0('PB_RNAseq/output_figures/alllines_Hmap_kmeans',k,'_clusters.tiff'),width=1000,height=2600,res=300)
+tiff(paste0('PB_RNAseq/output_figures/alllines_Hmap_kmeans_k',k,'_clusters.tiff'),width=1000,height=2600,res=300)
 draw(hlist, row_split = kdf$hk_clusters, cluster_row_slices = TRUE,cluster_rows=FALSE, row_dend_reorder = TRUE,show_row_dend = FALSE)
 dev.off()
                
@@ -236,7 +236,7 @@ dev.off()
 bg_universe<-allDE_collated$gene
 length(bg_universe)
 
-clusters<-read.table('PB_RNAseq/output_data/cluster_details_6_alllines.txt',stringsAsFactors = FALSE,header=TRUE)
+clusters<-read.table('PB_RNAseq/output_data/cluster_details_k6_alllines.txt',stringsAsFactors = FALSE,header=TRUE)
 
 GOtypes<-c('CC')
 for(GOtype in GOtypes){

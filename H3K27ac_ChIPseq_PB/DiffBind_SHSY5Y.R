@@ -18,7 +18,7 @@ SHSY5Y_data<-dba.blacklist(SHSY5Y_data,blacklist=DBA_BLACKLIST_HG19,cores=10)
 
 
 # check sample correlations -----------------------------------------------
-pdf(paste0(datadir,'PB_H3K27ac_ChIPseq/output_figures/SHSY5Y_correlations_ConsensusNoSummits_vInput_broad.pdf'),width=500,height=400)
+pdf(paste0(datadir,'PB_H3K27ac_ChIPseq/output_figures/SHSY5Y_correlations.pdf'),width=500,height=400)
 plot(SHSY5Y_data)
 dev.off()
 
@@ -42,12 +42,12 @@ print(olap.rate.all)
 control_consensus_1<-dba.peakset(SHSY5Y_data, bRetrieve=T, DataType=DBA_DATA_FRAME,SHSY5Y_data$masks$control, minOverlap=3) 
 control_consensus_1x<-control_consensus_1[,1:3]
 nrow(control_consensus_1x) 
-write.table(control_consensus_1x,paste0(datadir,'PB_H3K27ac_ChIPseq/output_data/SHSY5Y_control_ConsensusNoSummits_vInput_broad_in3of5.bed'), col.names = F, row.names = F, quote = F, sep = "\t")
+write.table(control_consensus_1x,paste0(datadir,'PB_H3K27ac_ChIPseq/output_data/SHSY5Y_control_Consensus_in3of5.bed'), col.names = F, row.names = F, quote = F, sep = "\t")
 
 PB_consensus_1<-dba.peakset(SHSY5Y_data, bRetrieve=T, DataType=DBA_DATA_FRAME,SHSY5Y_data$masks$PB, minOverlap=3) 
 PB_consensus_1x<-PB_consensus_1[,1:3]
 nrow(PB_consensus_1x) 
-write.table(PB_consensus_1x,paste0(datadir,'PB_H3K27ac_ChIPseq/output_data/SHSY5Y_PB_ConsensusNoSummits_vInput_broad_in3of5.bed'), col.names = F, row.names = F, quote = F, sep = "\t")
+write.table(PB_consensus_1x,paste0(datadir,'PB_H3K27ac_ChIPseq/output_data/SHSY5Y_PB_Consensus_in3of5.bed'), col.names = F, row.names = F, quote = F, sep = "\t")
 
 
 # get full consensus peakset across conditions
@@ -57,7 +57,7 @@ ExptConsensus
 ConsensusPeaks <- dba.peakset(ExptConsensus, bRetrieve=TRUE,DataType=DBA_DATA_FRAME,minOverlap=1)
 ConsensusPeaksx<-ConsensusPeaks[,1:3]
 nrow(ConsensusPeaksx) 
-write.table(ConsensusPeaksx,paste0(datadir,'PB_H3K27ac_ChIPseq/output_data/SHSY5Y_ConsensusNoSummits_vInput_broad_bothin3of5.bed'), col.names = F, row.names = F, quote = F, sep = "\t")
+write.table(ConsensusPeaksx,paste0(datadir,'PB_H3K27ac_ChIPseq/output_data/SHSY5Y_Consensus_bothin3of5.bed'), col.names = F, row.names = F, quote = F, sep = "\t")
 
 
 # get peakset counts ------------------------------------------------------
@@ -67,14 +67,14 @@ SHSY5Y_data_count <- dba.count(SHSY5Y_data,peaks=ConsensusPeaks,bParallel=TRUE,s
 
 
 # plot PCA ----------------------------------------------------------------
-tiff(file='PB_H3K27ac_ChIPseq/output_figures/SHSY5Y_PCA_normalised_ConsensusNoSummits_vInput_broad_nolabel.tiff',width=1400,height=1300,res=300)
+tiff(file='PB_H3K27ac_ChIPseq/output_figures/SHSY5Y_PCA_normalised.tiff',width=1400,height=1300,res=300)
 dba.plotPCA(SHSY5Y_data_count_v2,DBA_CONDITION,vColors=c('grey48','red3'),score=DBA_SCORE_NORMALIZED)
 dev.off()
 
 
 # get FRiP details; FRiP = fraction of reads in the peaks -----------------
 info <- dba.show(SHSY5Y_data_count_v2)
-write.table(data.frame(info,stringsAsFactors=FALSE),'PB_H3K27ac_ChIPseq/output_figures/info_SHSY5Y_vInput_broad.txt',col.names=TRUE,row.names=FALSE,quote=FALSE)
+write.table(data.frame(info,stringsAsFactors=FALSE),'PB_H3K27ac_ChIPseq/output_figures/info_SHSY5Y.txt',col.names=TRUE,row.names=FALSE,quote=FALSE)
 libsizes <- cbind(LibReads=info$Reads, FRiP=info$FRiP,PeakReads=round(info$Reads * info$FRiP))
 rownames(libsizes) <- info$ID
 print(libsizes)
@@ -104,10 +104,10 @@ print(sum(SHSY5Y_data_analyze_DiffSites$Fold<0 & SHSY5Y_data_analyze_DiffSites$F
 
 # DiffBind output table
 report <- dba.report(SHSY5Y_data_analyze, contrast = 1, th = 1, bFlip = F)
-write.table(report, paste0("PB_H3K27ac_ChIPseq/output_data/SHSY5Y_5dPBvControl_ConsensusNoSummits_vInput.txt"), sep = "\t", col.names = T, row.names = F, quote = F)
+write.table(report, paste0("PB_H3K27ac_ChIPseq/output_data/DiffBind_SHSY5Y_5dPBvControl_Consensus.txt"), sep = "\t", col.names = T, row.names = F, quote = F)
 
 # plot data as volcano plot
-png('PB_H3K27ac_ChIPseq/output_figures/SHSY5Y_volcano_afteranalysis_ConsensusNoSummits_vInput_broad.png',width=500,height=400)
+png('PB_H3K27ac_ChIPseq/output_figures/SHSY5Y_volcano.png',width=500,height=400)
 dba.plotVolcano(SHSY5Y_data_analyze) 
 dev.off()
 

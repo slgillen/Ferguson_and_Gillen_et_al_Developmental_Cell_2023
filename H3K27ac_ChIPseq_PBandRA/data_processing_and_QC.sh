@@ -156,7 +156,7 @@ wait
 for s in ${samplenames[@]}
 do
   echo $file
-  bamCoverage -b $filtdir/${s}_filt_sorted.bam -o $bwdir/${s}_CPM.bw --binSize 10 --normalizeUsing CPM --effectiveGenomeSize 2864785220 --extendReads
+  bamCoverage -b $filtdir/${s}_filt_sorted.bam -o $bwdir/${s}_CPM.bw --binSize 10 -p 6 --normalizeUsing CPM --effectiveGenomeSize 2864785220 --extendReads
 done
 wait
 

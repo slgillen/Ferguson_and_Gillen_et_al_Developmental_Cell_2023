@@ -1,5 +1,6 @@
-import os
+#this script has been adapted from ROSE - doi: 10.1016/j.cell.2013.03.035 & doi: 10.1016/j.cell.2013.03.036
 
+import os
 import re
 
 from string import *

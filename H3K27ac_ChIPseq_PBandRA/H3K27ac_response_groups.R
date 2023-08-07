@@ -1,3 +1,6 @@
+#this script is used to group the identified H3K27ac by how they respond to RA/PB/PB+RA treatment compared to DMSO control
+
+
 # load libraries ----------------------------------------------------------
 library(ggplot2)
 library(clusterProfiler)

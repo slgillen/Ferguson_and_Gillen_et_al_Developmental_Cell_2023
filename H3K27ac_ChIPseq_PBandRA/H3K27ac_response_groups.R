@@ -113,4 +113,42 @@ ggsave(filename=paste0(outdir,'H3K27ac_groups_boxplot.png'),plot=f1,width=13.5,h
 rm(plotdf,f1)
 
 
+# connect H3K27ac regions to genes ---------------------------------------------------------------
+
+
+# gene ontology on associated genes ---------------------------------------------------------------
+
+GOdir<-'final_region_plots/gene_ontology/'
+
+allplotdata<-merge(allplotdata,peakAnno[,c('REGION_ID','SYMBOL')],by='REGION_ID')
+dim(allplotdata)
+
+plotgroups<-c('up_PBRA','up_PB_PBRA','up_RA_PBRA','up_all3')
+GOdata<-subset(allplotdata[,c('SYMBOL','DiffGroup')],(DiffGroup %in% plotgroups)==TRUE)
+GOdata$DiffGroup<-factor(GOdata$DiffGroup,levels=plotgroups)
+
+ck_go_cc<-compareCluster(SYMBOL~DiffGroup, data=GOdata, fun="enrichGO", OrgDb="org.Hs.eg.db", ont='CC',pAdjustMethod='fdr', pvalueCutoff=0.05,keyType='SYMBOL',minGSSize=10,maxGSSize=500)
+
+dcc<-dotplot(ck_go_cc, showCategory = 10)+theme_bw()+theme(panel.grid.major.y = element_blank(),legend.position='none',plot.margin=unit(c(0,3,0,0),unit='cm'),
+                                                           axis.text.x = element_text(angle = 315,vjust=0.5,hjust=0))+
+  scale_colour_gradient(low='forestgreen',high='gold2')+coord_flip()+scale_y_discrete(labels = function(x) str_wrap(x, width = 50))
+ggsave(filename=paste0(GOdir,'/compareCluster_CC.png'),dcc,width=12,height=4)
+
+rm(ck_go_cc)
+rm(dcc)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

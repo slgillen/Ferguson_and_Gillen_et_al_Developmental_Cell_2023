@@ -1,5 +1,7 @@
 #!/usr/bin/env Rscript
 
+#this script uses ChIPseeker to annotate the H3K27ac peaks
+
 
 # load libraries ------------------------------------------
 

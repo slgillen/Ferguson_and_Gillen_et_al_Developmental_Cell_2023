@@ -29,3 +29,6 @@ txdb1 <- TxDb.Hsapiens.UCSC.hg19.knownGene
 filenames<-c("down_all3","down_RA_PBRA","down_PB_PBRA","down_PBRA","down_RA","down_PB","down_PB_RA","ns_all3","PBdown_RAup_PBRAdown","PBdown_RAup_PBRAns","PBdown_RAup_PBRAup","PBup_RAdown_PBRAdown","PBup_RAdown_PBRAns","PBup_RAdown_PBRAup","up_PB_RA","up_PB","up_RA","up_PBRA","up_PB_PBRA","up_RA_PBRA","up_all3")
 
 plot_ChIPseeker_multiple(txdb1,filenames,'ChIPseeker',indir,outdir)
+
+
+                    

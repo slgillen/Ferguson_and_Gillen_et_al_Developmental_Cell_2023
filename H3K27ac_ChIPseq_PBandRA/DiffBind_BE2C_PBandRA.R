@@ -4,19 +4,14 @@
 library(DiffBind) #version 3.4
 library(BiocParallel)
 
+
 # read in data ------------------------------------------------------------
-datadir<-'DiffBind/'
-dir.create(datadir)
-
-
-##################### read in data #####################
-samples <- read.csv(paste0(datadir,"PBandRA_DiffBind_SampleSheet_vInput.csv"),stringsAsFactors=FALSE) #narrow just means MACS2
+samples <- read.csv(paste0(datadir,"PB_H3K27ac_ChIPseq/data/PBandRA_DiffBind_SampleSheet_vInput.csv"),stringsAsFactors=FALSE) #narrow just means MACS2
 print(names(samples))
-
 
 BE2C_PBandRA_data <- dba(sampleSheet=samples,minOverlap=1)
 
-##################### black (and grey?) lists application #####################
+# blacklist filtering ------------------------------------------------------------
 BE2C_PBandRA_data<-dba.blacklist(BE2C_PBandRA_data,blacklist=DBA_BLACKLIST_HG19,cores=12)
 
 

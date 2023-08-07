@@ -1,5 +1,5 @@
-# Ferguson_and_Gillen_et_al_2023
-This repository contains scripts relating to analysis for the manuscript: Palbociclib release the latent differentiation capacity of neuroblastoma cells (2023)
+# Ferguson and Gillen et al 2023
+This repository contains scripts relating to the analysis conducted in the article: Palbociclib releases the latent differentiation capacity of neuroblastoma cells (Developmental Cell, 2023)
 
 ## corresponding datasets
 

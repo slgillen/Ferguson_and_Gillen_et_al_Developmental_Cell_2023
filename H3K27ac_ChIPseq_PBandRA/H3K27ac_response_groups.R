@@ -5,7 +5,9 @@ library(clusterProfiler)
 
 # read in DiffBind output tables ------------------------------------------
 
-inputdir<-'region_overlaps/'
+inputdir<-'DiffBind/'
+outdir<-'H3K27ac_region_groups/'
+dir.create(outdir)
 
 filenames <- dir(inputdir, pattern = "*_Consensus.txt")
 length(filenames)
@@ -17,6 +19,7 @@ length(allDB)
 samplenames<-gsub('_Consensus.txt','',filenames)
 samplenames
 
+              
 # filter out regions with Conc < 3 in the different conditions ------------------------------------------
 #filter out low coverage consensus regions
 x1<-allDB[[1]]
@@ -27,7 +30,6 @@ x2$region_name<-apply(x2[,1:3],1,function(x) paste(x,collapse='_'))
 x2$region_name<-gsub(' ','',x2$region_name)
 
 remove_check<-merge(x1[,c('region_name','Conc_DMSO','Conc_PBRA')],x2[,c('region_name','Conc_PB','Conc_RA')],by='region_name')
-nrow(remove_check)
 lessthan3<-subset(remove_check,Conc_DMSO<3 & Conc_RA<3 & Conc_PB<3 & Conc_PBRA<3)
 nrow(lessthan3) #822
 
@@ -49,7 +51,8 @@ mergedDB<-merge(mergedDB,allDB[[5]][,c(13,9,11,14)],by='REGION_ID')
 #get all regions in file for obtaining peak annotation with ChIPseeker
 write.table(mergedDB[,c(1,2,3,5)],paste0(outdir,'all_regions.bed'),sep='\t',quote=FALSE,col.names=FALSE,row.names=FALSE)
 
-# sort mark groups into non-redundant groups  ---------------------------
+                      
+# sort HK327ac mark changes in the different conditions into non-redundant groups  ---------------------------
 
 #special case antagonism groups
 PBup_RAdown_PBRAup<-subset(mergedDB,PBvDMSO_sig_type=='up' & PBRAvDMSO_sig_type=='up' & RAvDMSO_sig_type=='down')
@@ -68,7 +71,7 @@ up_PB<-subset(mergedDB,PBvDMSO_sig_type=='up' & PBRAvDMSO_sig_type!='up' & RAvDM
 up_PBRA<-subset(mergedDB,PBvDMSO_sig_type!='up' & PBRAvDMSO_sig_type=='up' & RAvDMSO_sig_type!='up' & (REGION_ID %in% antag_regions)==FALSE)
 up_RA<-subset(mergedDB,PBvDMSO_sig_type!='up' & PBRAvDMSO_sig_type!='up' & RAvDMSO_sig_type=='up' & (REGION_ID %in% antag_regions)==FALSE)
 
-#downregulated regions
+#down regulated regions
 down_all3<-subset(mergedDB,PBvDMSO_sig_type=='down' & PBRAvDMSO_sig_type=='down' & RAvDMSO_sig_type=='down' & (REGION_ID %in% antag_regions)==FALSE)
 down_PB_PBRA<-subset(mergedDB,PBvDMSO_sig_type=='down' & PBRAvDMSO_sig_type=='down' & RAvDMSO_sig_type!='down' & (REGION_ID %in% antag_regions)==FALSE)
 down_RA_PBRA<-subset(mergedDB,PBvDMSO_sig_type!='down' & PBRAvDMSO_sig_type=='down' & RAvDMSO_sig_type=='down' & (REGION_ID %in% antag_regions)==FALSE)
@@ -78,7 +81,7 @@ down_PBRA<-subset(mergedDB,PBvDMSO_sig_type!='down' & PBRAvDMSO_sig_type=='down'
 down_RA<-subset(mergedDB,PBvDMSO_sig_type!='down' & PBRAvDMSO_sig_type!='down' & RAvDMSO_sig_type=='down' & (REGION_ID %in% antag_regions)==FALSE)
 
 #regions with no change
-ns_all3<-subset(mergedDB,PBvDMSO_sig_type=='ns' & PBRAvDMSO_sig_type=='ns' & RAvDMSO_sig_type=='ns' & (REGION_ID %in% antag_regions)==FALSE)
+ns_all3<-subset(mergedDB,PBvDMSO_sig_type=='ns' & PBRAvDMSO_sig_type=='ns' & RAvDMSO_sig_type=='ns')
 
 #sort group names
 up_all3$DiffGroup<-rep('up_all3',nrow(up_all3))
@@ -157,10 +160,10 @@ rm(plotdf,f1)
 
 # gene ontology on associated genes ---------------------------------------------------------------
 
-GOdir<-'final_region_plots/gene_ontology/'
+GOdir<-'gene_ontology/'
 
 #format ChIPseeker peak annotation of the regions
-peakAnno<-read.delim(file = 'region_overlaps/peakAnno_all_regions.txt')
+peakAnno<-read.delim(file = 'H3K27ac_region_groups/peakAnno_all_regions.txt')
 names(peakAnno)
 
 peakAnno$start<-peakAnno$start-1

@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-#130428
+#this script has been adapted from ROSE - doi: 10.1016/j.cell.2013.03.035 & doi: 10.1016/j.cell.2013.03.036
 
 #ROSE_geneMapper.py
 
@@ -9,12 +9,7 @@
 #does this by default for super-enhancers only
 
 import sys
-
-
-
 import ROSE_utils
-
-
 import os
 
 from string import upper,join

@@ -119,7 +119,7 @@ h1<-Heatmap(as.matrix(kdf[,2:(ncol(kdf)-1)]),cluster_rows=FALSE,cluster_columns=
 h2<-Heatmap(as.matrix(kdf[,'hk_clusters']),cluster_columns=TRUE,cluster_rows=FALSE)
 
 hlist <- h1+h2
-tiff('PBandRA_RNAseq/output_figures/Hmap_PBandRA_cluster_k5_complete.tiff',width=800,height=2400,res=300)
+tiff('PBandRA_RNAseq/output_figures/Hmap_PBandRA_clusters.tiff',width=800,height=2400,res=300)
 draw(hlist, row_split = kdf$hk_clusters, cluster_row_slices = FALSE,cluster_rows=TRUE, row_dend_reorder = TRUE,show_row_dend = FALSE)    
 dev.off()
 
@@ -128,7 +128,7 @@ kdf_table<-kdf
 kdf_table$gene<-rownames(kdf)
 kdf_table<-kdf_table[,c('gene','hk_clusters')]
 names(kdf_table)<-c('gene','cluster')
-write.table(kdf_table,'PBandRA_RNAseq/output_data/PBandRA_cluster_k5_complete.txt',row.names=FALSE,quote=FALSE,col.names=TRUE)
+write.table(kdf_table,'PBandRA_RNAseq/output_data/PBandRA_clusters.txt',row.names=FALSE,quote=FALSE,col.names=TRUE)
        
        
 # conduct gene ontology analysis of clusters ------------------------------------------
@@ -155,23 +155,23 @@ NBsurvival_kscan<-read.table('PBandRA_RNAseq/data/survival_kscan.txt',stringsAsF
 nrow(NBsurvival_kscan)
 nrow(subset(NBsurvival_kscan,V5=='high'))
 nrow(subset(NBsurvival_kscan,V5=='low'))
-highbad<-subset(NBsurvival_kscan,V5=='high')$V2
-lowbad<-subset(NBsurvival_kscan,V5=='low')$V2
+high<-subset(NBsurvival_kscan,V5=='high')$V2 #high expression associated with poor survival
+low<-subset(NBsurvival_kscan,V5=='low')$V2 #low expression associated with poor survival
 
 allDE_collated$survival_type<-rep('ns',nrow(allDE_collated))
 for(i in 1:nrow(allDE_collated)){
-  if((allDE_collated[i,'gene'] %in% highbad)==TRUE){
-    allDE_collated[i,'survival_type']<-'high is bad'
+  if((allDE_collated[i,'gene'] %in% high)==TRUE){
+    allDE_collated[i,'survival_type']<-'high'
   }
-  if((allDE_collated[i,'gene'] %in% lowbad)==TRUE){
-    allDE_collated[i,'survival_type']<-'low is bad'
+  if((allDE_collated[i,'gene'] %in% low)==TRUE){
+    allDE_collated[i,'survival_type']<-'low'
   }
 }
-allDE_collated$survival_type<-factor(allDE_collated$survival_type,levels=c('ns','low is bad','high is bad'))
+allDE_collated$survival_type<-factor(allDE_collated$survival_type,levels=c('ns','low','high'))
 allDE_collated<-allDE_collated[order(allDE_collated$survival_type),]
 
 # volcano plot for PB+RA v DMSO RNA-seq data with survival data groups mapped on                                                                                      
-png('PBandRA_RNAseq/output_figures/volcano_suvival_set1_lowisbad.png',width=500,height=350)
+png('PBandRA_RNAseq/output_figures/volcano_suvival_high.png',width=500,height=350)
 ggplot(data=allDE_collated, aes(x=PBandRAvControl_log2FoldChange, y=-log10(PBandRAvControl_padj), col=survival_type))+geom_point()+theme_classic()+
   scale_color_manual(values=c("grey68","grey68","darkorange"))+geom_vline(xintercept=-0.5, col="black",linetype='dashed')+
   geom_hline(yintercept=-log10(0.05), col="black",linetype='dashed')+geom_vline(xintercept=0.5, col="black",linetype='dashed')+
@@ -179,10 +179,10 @@ ggplot(data=allDE_collated, aes(x=PBandRAvControl_log2FoldChange, y=-log10(PBand
   theme(axis.text=element_text(size=16),axis.title=element_text(size=20))+xlab(expression('log'[2]*'FC PB+RA v DMSO'))+ylab(expression("-log"[10]*"FDR"))
 dev.off()
 
-allDE_collated$survival_type<-factor(allDE_collated$survival_type,levels=c('ns','high is bad','low is bad'))
+allDE_collated$survival_type<-factor(allDE_collated$survival_type,levels=c('ns','high','low'))
 allDE_collated<-allDE_collated[order(allDE_collated$survival_type),]
 
-png('PBandRA_RNAseq/output_figures/volcano_suvival_set1_highisbad.png',width=500,height=350)
+png('PBandRA_RNAseq/output_figures/volcano_suvival_low.png',width=500,height=350)
 ggplot(data=allDE_collated, aes(x=PBandRAvControl_log2FoldChange, y=-log10(PBandRAvControl_padj), col=survival_type))+geom_point()+theme_classic()+
   scale_color_manual(values=c("grey68","grey68","green4"))+geom_vline(xintercept=-0.5, col="black",linetype='dashed')+
   geom_hline(yintercept=-log10(0.05), col="black",linetype='dashed')+geom_vline(xintercept=0.5, col="black",linetype='dashed')+

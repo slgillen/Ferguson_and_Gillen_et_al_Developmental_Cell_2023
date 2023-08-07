@@ -1,6 +1,8 @@
 # Ferguson and Gillen et al 2023
 This repository contains scripts relating to the analysis conducted in the article: Palbociclib releases the latent differentiation capacity of neuroblastoma cells (Developmental Cell, 2023)
 
+10.5281/zenodo.8221346
+
 ## corresponding datasets
 
 The corresponding raw and relevant processed datasets are deposited in the Gene Expression Omnibus data repository (GEO) under the SuperSeries GSE216292.

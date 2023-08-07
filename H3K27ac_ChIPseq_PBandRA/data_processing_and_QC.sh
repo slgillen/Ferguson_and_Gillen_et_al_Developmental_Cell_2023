@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#this script takes the fastq files and conducts the quality control, quality trimming, alignments, filtering and peak calling and generation of bigwig files for the H3K27ac ChIP-seq data
+
 ########  tools used in this script ########
 #fastp version: 0.12.4
 #fastqc version: 0.11.9

@@ -281,25 +281,3 @@ dev.off()
 
 
 
-
-
-
-##################### other data normalisation PCA #####################
-
-print(BE2C_PBandRA_data_count$SN) #can update this using more accurate rounding from the raw reads data above if required - only necessary with TF data that has much lower FRiP scores?
-
-
-#normalise the data and replot PCA - with DESeq2 norm #i.e. RLE norm?
-BE2C_PBandRA_data_DESEQnorm<-dba.normalize(BE2C_PBandRA_data_count,method=DBA_DESEQ2,minCount=1,peaks=ConsensusPeaks_v2) 
-
-tiff(paste0(datadir,'PBandRA_data_DESEQnorm_PCA.tiff'),width=1400,height=1400,res=300)
-dba.plotPCA(BE2C_PBandRA_data_DESEQnorm,DBA_CONDITION,label=DBA_REPLICATE,vColors=c('grey48','royalblue3','red3','purple'))
-dev.off()
-
-BE2C_PBandRA_data_FRIPnorm<-dba.normalize(BE2C_PBandRA_data_count,normalize=DBA_NORM_LIB, library=DBA_LIBSIZE_PEAKREADS) 
-
-tiff(paste0(datadir,'PBandRA_FRiPnorm_PCA.tiff'),width=1400,height=1400,res=300)
-dba.plotPCA(BE2C_PBandRA_data_FRIPnorm,DBA_CONDITION,label=DBA_REPLICATE,vColors=c('grey48','royalblue3','red3','purple'))
-dev.off()
-
-
